@@ -1,8 +1,8 @@
-FROM alpine:3.7
+FROM alpine:3.11
 
-MAINTAINER Tommy Lau <tommy@gen-new.com>
+LABEL maintainer="Amin Vakil <info@aminvakil.com>"
 
-ENV OC_VERSION=0.12.1
+ENV OC_VERSION=1.0.1
 
 RUN buildDeps=" \
 		curl \
@@ -24,7 +24,6 @@ RUN buildDeps=" \
 	&& apk add --update --virtual .build-deps $buildDeps \
 	&& curl -SL "ftp://ftp.infradead.org/pub/ocserv/ocserv-$OC_VERSION.tar.xz" -o ocserv.tar.xz \
 	&& curl -SL "ftp://ftp.infradead.org/pub/ocserv/ocserv-$OC_VERSION.tar.xz.sig" -o ocserv.tar.xz.sig \
-	&& gpg --keyserver pgp.mit.edu --recv-key 7F343FA7 \
 	&& gpg --keyserver pgp.mit.edu --recv-key 96865171 \
 	&& gpg --verify ocserv.tar.xz.sig \
 	&& mkdir -p /usr/src/ocserv \
@@ -49,7 +48,7 @@ RUN buildDeps=" \
 	&& rm -rf /var/cache/apk/*
 
 # Setup config
-COPY groupinfo.txt /tmp/
+COPY routes.txt /tmp/
 RUN set -x \
 	&& sed -i 's/\.\/sample\.passwd/\/etc\/ocserv\/ocpasswd/' /etc/ocserv/ocserv.conf \
 	&& sed -i 's/\(max-same-clients = \)2/\110/' /etc/ocserv/ocserv.conf \
@@ -60,15 +59,11 @@ RUN set -x \
 	&& sed -i 's/^route/#route/' /etc/ocserv/ocserv.conf \
 	&& sed -i 's/^no-route/#no-route/' /etc/ocserv/ocserv.conf \
 	&& sed -i '/\[vhost:www.example.com\]/,$d' /etc/ocserv/ocserv.conf \
-	&& mkdir -p /etc/ocserv/config-per-group \
-	&& cat /tmp/groupinfo.txt >> /etc/ocserv/ocserv.conf \
-	&& rm -fr /tmp/cn-no-route.txt \
-	&& rm -fr /tmp/groupinfo.txt
+        && sed -i '/^cookie-timeout = /{s/300/3600/}' /etc/ocserv/ocserv.conf \
+	&& cat /tmp/routes.txt >> /etc/ocserv/ocserv.conf \
+	&& rm -rf /tmp/routes.txt
 
 WORKDIR /etc/ocserv
-
-COPY All /etc/ocserv/config-per-group/All
-COPY cn-no-route.txt /etc/ocserv/config-per-group/Route
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
