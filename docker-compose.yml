@@ -1,8 +1,8 @@
-version: '3.0'
+version: '3.8'
 services:
   ocserv:
-    image: tommylau/ocserv
-    restart: always
+    image: aminvakil/ocserv
+    restart: unless-stopped
     container_name: ocserv
     privileged: true
     hostname: www.example.com
