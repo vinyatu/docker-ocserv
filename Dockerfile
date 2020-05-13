@@ -24,7 +24,7 @@ RUN buildDeps=" \
 	&& apk add --update --virtual .build-deps $buildDeps \
 	&& curl -SL "ftp://ftp.infradead.org/pub/ocserv/ocserv-$OC_VERSION.tar.xz" -o ocserv.tar.xz \
 	&& curl -SL "ftp://ftp.infradead.org/pub/ocserv/ocserv-$OC_VERSION.tar.xz.sig" -o ocserv.tar.xz.sig \
-	&& gpg --keyserver pgp.mit.edu --recv-key 96865171 \
+	&& gpg --keyserver keys.gnupg.net --recv-key 96865171 \
 	&& gpg --verify ocserv.tar.xz.sig \
 	&& mkdir -p /usr/src/ocserv \
 	&& tar -xf ocserv.tar.xz -C /usr/src/ocserv --strip-components=1 \
@@ -59,7 +59,7 @@ RUN set -x \
 	&& sed -i 's/^route/#route/' /etc/ocserv/ocserv.conf \
 	&& sed -i 's/^no-route/#no-route/' /etc/ocserv/ocserv.conf \
 	&& sed -i '/\[vhost:www.example.com\]/,$d' /etc/ocserv/ocserv.conf \
-        && sed -i '/^cookie-timeout = /{s/300/3600/}' /etc/ocserv/ocserv.conf \
+	&& sed -i '/^cookie-timeout = /{s/300/3600/}' /etc/ocserv/ocserv.conf \
 	&& cat /tmp/routes.txt >> /etc/ocserv/ocserv.conf \
 	&& rm -rf /tmp/routes.txt
 
