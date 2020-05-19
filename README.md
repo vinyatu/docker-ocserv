@@ -2,10 +2,13 @@
 
 docker-ocserv is an OpenConnect VPN Server boxed in a Docker image built by [Tommy Lau](mailto:tommy@gen-new.com) currently maintained by [Amin Vakil](mailto:info@aminvakil.com).
 
+## Update on May 19, 2020
+
+Change `--privileged`` to ``--sysctl net.ipv4_ip_forward=1 --cap-add NET_ADMIN`` as they're the only privileges that this docker needs, so it would be unnecessary to give this container the whole privileges. ([Principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege))
+
 ## Update on May 13, 2020
 
 Upgraded base image and ocserv, remove group, other improvements
-
 
 ## What is OpenConnect Server?
 
