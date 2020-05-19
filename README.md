@@ -22,7 +22,7 @@ docker pull aminvakil/ocserv
 Start an ocserv instance:
 
 ```bash
-docker run --name ocserv --privileged -p 443:443 -p 443:443/udp -d aminvakil/ocserv
+docker run --name ocserv --sysctl net.ipv4.ip_forward=1 --cap-add NET_ADMIN -p 443:443 -p 443:443/udp -d aminvakil/ocserv
 ```
 
 This will start an instance with the a test user named `test` and password is also `test`.
@@ -61,31 +61,31 @@ The default values of the above environment variables:
 Start an instance out of the box with username `test` and password `test`
 
 ```bash
-docker run --name ocserv --privileged -p 443:443 -p 443:443/udp -d aminvakil/ocserv
+docker run --name ocserv --sysctl net.ipv4.ip_forward=1 --cap-add NET_ADMIN -p 443:443 -p 443:443/udp -d aminvakil/ocserv
 ```
 
 Start an instance with server name `my.test.com`, `My Test` and `365` days
 
 ```bash
-docker run --name ocserv --privileged -p 443:443 -p 443:443/udp -e SRV_CN=my.test.com -e SRV_ORG="My Test" -e SRV_DAYS=365 -d aminvakil/ocserv
+docker run --name ocserv --sysctl net.ipv4.ip_forward=1 --cap-add NET_ADMIN -p 443:443 -p 443:443/udp -e SRV_CN=my.test.com -e SRV_ORG="My Test" -e SRV_DAYS=365 -d aminvakil/ocserv
 ```
 
 Start an instance with CA name `My CA`, `My Corp` and `3650` days
 
 ```bash
-docker run --name ocserv --privileged -p 443:443 -p 443:443/udp -e CA_CN="My CA" -e CA_ORG="My Corp" -e CA_DAYS=3650 -d aminvakil/ocserv
+docker run --name ocserv --sysctl net.ipv4.ip_forward=1 --cap-add NET_ADMIN -p 443:443 -p 443:443/udp -e CA_CN="My CA" -e CA_ORG="My Corp" -e CA_DAYS=3650 -d aminvakil/ocserv
 ```
 
 A totally customized instance with both CA and server certification
 
 ```bash
-docker run --name ocserv --privileged -p 443:443 -p 443:443/udp -e CA_CN="My CA" -e CA_ORG="My Corp" -e CA_DAYS=3650 -e SRV_CN=my.test.com -e SRV_ORG="My Test" -e SRV_DAYS=365 -d aminvakil/ocserv
+docker run --name ocserv --sysctl net.ipv4.ip_forward=1 --cap-add NET_ADMIN -p 443:443 -p 443:443/udp -e CA_CN="My CA" -e CA_ORG="My Corp" -e CA_DAYS=3650 -e SRV_CN=my.test.com -e SRV_ORG="My Test" -e SRV_DAYS=365 -d aminvakil/ocserv
 ```
 
 Start an instance as above but without test user
 
 ```bash
-docker run --name ocserv --privileged -p 443:443 -p 443:443/udp -e CA_CN="My CA" -e CA_ORG="My Corp" -e CA_DAYS=3650 -e SRV_CN=my.test.com -e SRV_ORG="My Test" -e SRV_DAYS=365 -e NO_TEST_USER=1 -v /some/path/to/ocpasswd:/etc/ocserv/ocpasswd -d aminvakil/ocserv
+docker run --name ocserv --sysctl net.ipv4.ip_forward=1 --cap-add NET_ADMIN -p 443:443 -p 443:443/udp -e CA_CN="My CA" -e CA_ORG="My Corp" -e CA_DAYS=3650 -e SRV_CN=my.test.com -e SRV_ORG="My Test" -e SRV_DAYS=365 -e NO_TEST_USER=1 -v /some/path/to/ocpasswd:/etc/ocserv/ocpasswd -d aminvakil/ocserv
 ```
 
 **WARNING:** The ocserv requires the ocpasswd file to start, if `NO_TEST_USER=1` is provided, there will be no ocpasswd created, which will stop the container immediately after start it. You must specific a ocpasswd file pointed to `/etc/ocserv/ocpasswd` by using the volume argument `-v` by docker as demonstrated above.
@@ -96,10 +96,10 @@ All the users opertaions happened while the container is running. If you used a 
 
 #### Add user
 
-If say, you want to create a user named `amin`, type the following command
+If say, you want to create a user named `test`, type the following command
 
 ```bash
-docker exec -ti ocserv ocpasswd -c /etc/ocserv/ocpasswd amin
+docker exec -ti ocserv ocpasswd -c /etc/ocserv/ocpasswd test
 Enter password:
 Re-enter password:
 ```
