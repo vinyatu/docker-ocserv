@@ -22,5 +22,5 @@ script:
 - sleep 10
 - docker ps -f id=${DOCKERCONTAINER}
 - nc -vvvvvv 127.0.0.1 ${CLIENT_PORT} < /dev/null
-- hadolint --ignore DL3003 --ignore DL3018 --ignore DL3019 --ignore SC2086 Dockerfile 
+- hadolint --ignore DL3003 --ignore DL3018 --ignore DL3019 Dockerfile 
 - docker stop ${DOCKERCONTAINER} && docker rm -fv ${DOCKERCONTAINER}
