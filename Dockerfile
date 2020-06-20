@@ -2,7 +2,7 @@ FROM alpine:3.12
 
 LABEL maintainer="Amin Vakil <info@aminvakil.com>"
 
-ENV OC_VERSION=1.0.1
+ENV OC_VERSION=1.1.0
 
 RUN apk add --no-cache bash
 
@@ -48,7 +48,7 @@ RUN buildDeps=( \
 			| sort -u \
 		)" \
 	&& readarray runDepsArr <<< "$runDeps" \
-	&& apk add --virtual .run-deps "${runDepsArr[@]}" gnutls-utils iptables libnl3 readline \
+	&& apk add --virtual .run-deps "${runDepsArr[@]}" gnutls-utils iptables libnl3 readline libseccomp-dev lz4-dev \
 	&& apk del .build-deps \
 	&& rm -rf /var/cache/apk/*
 
