@@ -21,6 +21,7 @@ script:
 - DOCKERCONTAINER=$(docker run --sysctl net.ipv4.ip_forward=1 --cap-add NET_ADMIN --security-opt no-new-privileges -p 127.0.0.1:${CLIENT_PORT}:443 -p 127.0.0.1:${CLIENT_PORT}:443/udp -d ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT})
 - sleep 10
 - docker ps -f id=${DOCKERCONTAINER}
+- curl -sk https://127.0.0.1:${CLIENT_PORT} | grep -q 'client="vpn"'
 - nc -v 127.0.0.1 ${CLIENT_PORT} < /dev/null
 - hadolint --ignore DL3003 --ignore DL3018 --ignore DL3019 Dockerfile 
 - docker stop ${DOCKERCONTAINER} && docker rm -fv ${DOCKERCONTAINER}
