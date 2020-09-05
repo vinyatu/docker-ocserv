@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   ocserv:
-    image: aminvakil/ocserv
+    image: quay.io/aminvakil/ocserv
     restart: unless-stopped
     container_name: ocserv
     hostname: www.example.com
