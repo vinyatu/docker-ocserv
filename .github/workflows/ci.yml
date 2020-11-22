@@ -23,7 +23,7 @@ jobs:
           HADOLINT_VERSION: 1.19.0
 
       - name: Run hadolint.
-        run: hadolint --ignore DL3003 --ignore DL3018 Dockerfile
+        run: hadolint --ignore DL3003 --ignore DL3018 --ignore DL3019 Dockerfile
 
   build:
     name: Build and test docker
