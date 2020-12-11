@@ -1,8 +1,8 @@
-FROM alpine:3.12
+FROM alpine:3.12.2
 
 LABEL maintainer="Amin Vakil <info@aminvakil.com>"
 
-ENV OC_VERSION=1.1.0
+ENV OC_VERSION=1.1.2
 
 RUN apk add --no-cache bash
 
