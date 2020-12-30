@@ -6,7 +6,7 @@ docker-ocserv is an OpenConnect VPN Server boxed in a Docker image built by [Tom
 
 Upgrade alpine to 3.12.3 and ocserv to 1.1.2.
 
-###**Important Note**:
+**Important Note**:
 
 `isolate-workers = true` should be disabled in ocserv.conf, otherwise clients keep disconnecting after a while.
 
