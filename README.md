@@ -2,6 +2,14 @@
 
 docker-ocserv is an OpenConnect VPN Server boxed in a Docker image built by [Tommy Lau](mailto:tommy@gen-new.com) currently maintained by [Amin Vakil](mailto:info@aminvakil.com).
 
+## Update on Mar 26, 2021
+
+Upgrade alpine to 3.13.6 to use openssl 1.1.1k-r0.
+
+**Important Note**:
+
+Updating to this version is highly recommended becuase of this upgrade as [CVE-2021-3449](https://www.openssl.org/news/secadv/20210325.txt).
+
 ## Update on Dec 30, 2020
 
 Upgrade alpine to 3.12.3 and ocserv to 1.1.2.
