@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
+        with:
+          ref: unstable
 
       - name: Install hadolint.
         run: |
@@ -33,6 +35,8 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
+        with:
+          ref: unstable
 
       - name: Find an open port.
         run: |
