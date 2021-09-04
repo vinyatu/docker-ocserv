@@ -90,9 +90,9 @@ jobs:
           pull: true
           push: true
           tags: |
-            quay.io/aminvakil/tagtest:${{ env.TAG }}
-            quay.io/aminvakil/tagtest:${{ env.VERSION }}
-            quay.io/aminvakil/tagtest:latest
+            quay.io/aminvakil/ocserv:${{ env.TAG }}
+            quay.io/aminvakil/ocserv:${{ env.VERSION }}
+            quay.io/aminvakil/ocserv:latest
         env:
           TAG: ${{ steps.get_version.outputs.TAG }}
           VERSION: ${{ steps.get_version.outputs.VERSION }}
