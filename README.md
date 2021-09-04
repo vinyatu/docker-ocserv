@@ -2,6 +2,16 @@
 
 docker-ocserv is an OpenConnect VPN Server boxed in a Docker image built by [Tommy Lau](mailto:tommy@gen-new.com) currently maintained by [Amin Vakil](mailto:info@aminvakil.com).
 
+## Update on Sep 04, 2021
+
+**Docker images are now tagged!**
+
+You can stick to a specific `ocserv` version like `quay.io/aminvakil/ocserv:1.1.3`, so you can get bugfixes, security patches and alpine version bumps, and be sure that your ocserv version always remains the same.
+
+You can also bump each `ocserv` minor update manually using something like `1.1.3-2` and so on.
+
+Latest tags can always be found [here](https://github.com/aminvakil/docker-ocserv/tags) and [here](https://quay.io/aminvakil/ocserv).
+
 ## Update on Mar 26, 2021
 
 Upgrade alpine to 3.13.6 to use openssl 1.1.1k-r0.
@@ -23,19 +33,6 @@ This has been set by default on the new docker images, but you should change you
 ```bash
 docker exec YOUR_CONTAINER_NAME sed -i 's/^isolate-workers/#isolate-workers/' /etc/ocserv/ocserv.conf
 ```
-## Update on Sep 05, 2020
-
-Migrate from Docker Hub to Quay as they're going to put limit for those who aren't willing to give them money.
-
-You should just change aminvakil/ocserv to quay.io/aminvakil/ocserv for the next updates. See "How to use this image" section for examples.
-
-## Update on May 19, 2020
-
-Change `--privileged` to `--sysctl net.ipv4_ip_forward=1 --cap-add NET_ADMIN --security-opt no-new-privileges` as they're the only privileges that this docker needs, so it would be unnecessary to give this container the whole privileges. ([Principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege))
-
-## Update on May 13, 2020
-
-Upgraded base image and ocserv, remove group, other improvements
 
 ## What is OpenConnect Server?
 
