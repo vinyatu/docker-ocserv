@@ -1,10 +1,13 @@
-FROM alpine:3.15.0
+FROM alpine:3.15.1
 
 LABEL maintainer="Amin Vakil <info@aminvakil.com>"
 
 ENV OC_VERSION=1.1.6
 
 RUN apk add --no-cache bash
+
+# hadolint ignore=DL3059
+RUN apk add --no-cache --upgrade libretls
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
