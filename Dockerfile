@@ -6,9 +6,6 @@ ENV OC_VERSION=1.1.6
 
 RUN apk add --no-cache bash
 
-# hadolint ignore=DL3059
-RUN apk add --no-cache --upgrade libretls
-
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN buildDeps=( \
