@@ -1,8 +1,8 @@
-name: bump ocserv version
+name: Bump ocserv version
 on:
   pull_request:
   schedule:
-  - cron: "0 0 * * *"
+    - cron: "0 0 * * *"
 jobs:
   ocserv-version-update:
     runs-on: ubuntu-latest
@@ -11,25 +11,25 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Update openconnect version
-      id: get_version
-      run: |
-        OC_VERSION=$(curl -s ftp://ftp.infradead.org/pub/ocserv/ | awk '{print $9}' | tail -n 1 | sed 's:.*-::;s:.tar.*::')
-        sed -i "s/ENV OC_VERSION=[0-9]*.[0-9]*.[0-9]*/ENV OC_VERSION=$OC_VERSION/g" Dockerfile
-        echo "OC_VERSION=$OC_VERSION" >> $GITHUB_OUTPUT
+      - name: Update openconnect version
+        id: get_version
+        run: |
+          OC_VERSION=$(curl -s ftp://ftp.infradead.org/pub/ocserv/ | awk '{print $9}' | tail -n 1 | sed 's:.*-::;s:.tar.*::')
+          sed -i "s/ENV OC_VERSION=[0-9]*.[0-9]*.[0-9]*/ENV OC_VERSION=$OC_VERSION/g" Dockerfile
+          echo "OC_VERSION=$OC_VERSION" >> $GITHUB_OUTPUT
 
-    - name: Create PR
-      uses: peter-evans/create-pull-request@v5
-      with:
-        commit-message: "Bump ocserv version ${{ steps.get_version.outputs.OC_VERSION }}"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: features/update-dependencies
-        title: Bump ocserv version
-        labels: dependencies
-        delete-branch: true
-        base: master
-      env:
-        OC_VERSION: ${{ steps.get_version.outputs.OC_VERSION }}
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "Bump ocserv version ${{ steps.get_version.outputs.OC_VERSION }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: features/update-dependencies
+          title: Bump ocserv version
+          labels: dependencies
+          delete-branch: true
+          base: master
+        env:
+          OC_VERSION: ${{ steps.get_version.outputs.OC_VERSION }}
