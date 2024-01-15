@@ -1,8 +1,8 @@
 name: Bump ocserv version
 on:
-  pull_request:
   schedule:
     - cron: "0 0 * * *"
+
 jobs:
   ocserv-version-update:
     runs-on: ubuntu-latest
