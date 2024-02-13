@@ -36,8 +36,12 @@ jobs:
           [ $(netstat -an | grep LISTEN | grep :$CLIENT_PORT | wc -l) -eq 0 ] || { ./$0 && exit 0 || exit 1; }
           echo "CLIENT_PORT=$CLIENT_PORT" >> $GITHUB_ENV
 
-      - name: Build docker image.
-        run: docker build --no-cache --tag ${GITHUB_REPOSITORY}:${GITHUB_RUN_ID} .
+      - name: Build docker image
+        uses: docker/build-push-action@v3
+        with:
+          push: false
+          no-cache: true
+          tags: ${{ github.repository }}:${{ github.run_id }}
 
       - name: Run a container of created image.
         run: |
