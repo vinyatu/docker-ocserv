@@ -93,6 +93,7 @@ jobs:
           file: ./Dockerfile
           pull: true
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: |
             quay.io/aminvakil/ocserv:${{ env.TAG }}
             quay.io/aminvakil/ocserv:${{ env.VERSION }}
