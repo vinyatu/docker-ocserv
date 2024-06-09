@@ -59,7 +59,7 @@ RUN set -x \
 	    -e 's/\.\.\/tests/\/etc\/ocserv/' \
 	    -e 's/#\(compression.*\)/\1/' \
 	    -e '/^ipv4-network = /{s/192.168.1.0/${OC_IPV4_NETWORK}/}' \
-	    -e '/^ipv4-netmask = /{s/255.255.255.0/${OC_IPV4_NETMASK}}/}' \
+	    -e '/^ipv4-netmask = /{s/255.255.255.0/${OC_IPV4_NETMASK}/}' \
 	    -e 's/192.168.1.2/8.8.8.8/' \
 	    -e 's/^route/#route/' \
 	    -e 's/^no-route/#no-route/' \
