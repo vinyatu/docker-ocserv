@@ -68,9 +68,7 @@ RUN set -x \
 	    -e '/\[vhost:www.example.com\]/,$d' \
 	    -e '/^cookie-timeout = /{s/300/3600/}' \
 	    -e 's/^isolate-workers/#isolate-workers/' /etc/ocserv/ocserv.conf > /tmp/ocserv.conf \
-	&& cat /tmp/routes.txt >> /tmp/ocserv.conf \
-	&& envsubst < /tmp/ocserv.conf > /etc/ocserv/ocserv.conf \
-	&& rm -f /tmp/ocserv.conf
+	&& cat /tmp/routes.txt >> /tmp/ocserv.conf
 
 WORKDIR /etc/ocserv
 

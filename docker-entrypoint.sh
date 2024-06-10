@@ -71,5 +71,8 @@ mkdir -p /dev/net
 mknod /dev/net/tun c 10 200
 chmod 600 /dev/net/tun
 
+# Update config
+envsubst < /tmp/ocserv.conf > /etc/ocserv/ocserv.conf
+
 # Run OpennConnect Server
 exec "$@"
