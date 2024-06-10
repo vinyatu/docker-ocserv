@@ -53,6 +53,8 @@ RUN buildDeps=( \
 
 # Setup config
 COPY routes.txt /tmp/
+
+# hadolint ignore=SC2016
 RUN set -x \
 	&& sed -e 's/\.\/sample\.passwd/\/etc\/ocserv\/ocpasswd/' \
 	    -e 's/\(max-same-clients = \)2/\110/' \
