@@ -8,7 +8,7 @@ ENV OC_IPV4_NETMASK="255.255.255.0"
 
 RUN apk add --no-cache bash
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
 RUN buildDeps=( \
 		curl \
@@ -26,7 +26,6 @@ RUN buildDeps=( \
 		tar \
 		xz \
 	); \
-	set -x \
 	&& apk add --update --virtual .build-deps "${buildDeps[@]}" \
 	&& curl -SL --connect-timeout 8 --max-time 120 --retry 128 --retry-delay 5 "ftp://ftp.infradead.org/pub/ocserv/ocserv-$OC_VERSION.tar.xz" -o ocserv.tar.xz \
 	&& mkdir -p /usr/src/ocserv \
@@ -55,7 +54,7 @@ RUN buildDeps=( \
 COPY routes.txt /tmp/
 
 # hadolint ignore=SC2016
-RUN set -x \
+RUN mv /etc/ocserv/ocserv.conf /etc/ocserv/ocserv-default.conf \
 	&& sed -e 's/\.\/sample\.passwd/\/etc\/ocserv\/ocpasswd/' \
 	    -e 's/\(max-same-clients = \)2/\110/' \
 	    -e 's/\.\.\/tests/\/etc\/ocserv/' \
@@ -67,7 +66,7 @@ RUN set -x \
 	    -e 's/^no-route/#no-route/' \
 	    -e '/\[vhost:www.example.com\]/,$d' \
 	    -e '/^cookie-timeout = /{s/300/3600/}' \
-	    -e 's/^isolate-workers/#isolate-workers/' /etc/ocserv/ocserv.conf > /tmp/ocserv.conf \
+	    -e 's/^isolate-workers/#isolate-workers/' /etc/ocserv/ocserv-default.conf > /tmp/ocserv.conf \
 	&& cat /tmp/routes.txt >> /tmp/ocserv.conf
 
 WORKDIR /etc/ocserv
