@@ -54,7 +54,7 @@ RUN buildDeps=( \
 COPY routes.txt /tmp/
 
 # hadolint ignore=SC2016
-RUN mv /etc/ocserv/ocserv.conf /etc/ocserv/ocserv-default.conf \
+RUN mv /etc/ocserv/ocserv.conf /tmp/ocserv-default.conf \
 	&& sed -e 's/\.\/sample\.passwd/\/etc\/ocserv\/ocpasswd/' \
 	    -e 's/\(max-same-clients = \)2/\110/' \
 	    -e 's/\.\.\/tests/\/etc\/ocserv/' \
@@ -66,7 +66,7 @@ RUN mv /etc/ocserv/ocserv.conf /etc/ocserv/ocserv-default.conf \
 	    -e 's/^no-route/#no-route/' \
 	    -e '/\[vhost:www.example.com\]/,$d' \
 	    -e '/^cookie-timeout = /{s/300/3600/}' \
-	    -e 's/^isolate-workers/#isolate-workers/' /etc/ocserv/ocserv-default.conf > /tmp/ocserv.conf \
+	    -e 's/^isolate-workers/#isolate-workers/' /tmp/ocserv-default.conf > /tmp/ocserv.conf \
 	&& cat /tmp/routes.txt >> /tmp/ocserv.conf
 
 WORKDIR /etc/ocserv
