@@ -73,6 +73,7 @@ chmod 600 /dev/net/tun
 
 # Update config
 if [ ! -f /etc/ocserv/ocserv.conf ]; then
+	echo "Creating ocserv config '/etc/ocserv/ocserv.conf'"
 	envsubst < /tmp/ocserv.conf > /etc/ocserv/ocserv.conf
 fi
 
