@@ -36,7 +36,7 @@ RUN buildDeps=( \
 	&& make \
 	&& make install \
 	&& mkdir -p /etc/ocserv \
-	&& cp /usr/src/ocserv/doc/sample.config /etc/ocserv/ocserv.conf \
+	&& cp /usr/src/ocserv/doc/sample.config /tmp/ocserv-default.conf \
 	&& cd / \
 	&& rm -fr /usr/src/ocserv \
 	&& runDeps="$( \
@@ -54,8 +54,7 @@ RUN buildDeps=( \
 COPY routes.txt /tmp/
 
 # hadolint ignore=SC2016
-RUN mv /etc/ocserv/ocserv.conf /tmp/ocserv-default.conf \
-	&& sed -e 's/\.\/sample\.passwd/\/etc\/ocserv\/ocpasswd/' \
+RUN sed -e 's/\.\/sample\.passwd/\/etc\/ocserv\/ocpasswd/' \
 	    -e 's/\(max-same-clients = \)2/\110/' \
 	    -e 's/\.\.\/tests/\/etc\/ocserv/' \
 	    -e 's/#\(compression.*\)/\1/' \
