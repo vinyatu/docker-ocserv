@@ -63,13 +63,19 @@ fi
 sysctl -w net.ipv4.ip_forward=1
 
 # Enable NAT forwarding
-iptables -t nat -A POSTROUTING -j MASQUERADE
+iptables -t nat -A POSTROUTING -j MASQUERADE -s "${OC_IPV4_NETWORK}"/"${OC_IPV4_NETMASK}"
 iptables -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 
 # Enable TUN device
 mkdir -p /dev/net
 mknod /dev/net/tun c 10 200
 chmod 600 /dev/net/tun
+
+# Update config
+if [ ! -f /etc/ocserv/ocserv.conf ]; then
+	echo "Creating ocserv config '/etc/ocserv/ocserv.conf'"
+	envsubst < /tmp/ocserv.conf > /etc/ocserv/ocserv.conf
+fi
 
 # Run OpennConnect Server
 exec "$@"
