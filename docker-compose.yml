@@ -1,4 +1,4 @@
-version: '3.8'
+---
 services:
   ocserv:
     image: quay.io/aminvakil/ocserv
