@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v3
+        uses: actions/checkout@main
 
       - name: Install hadolint.
         run: |
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v3
+        uses: actions/checkout@main
 
       - name: Find an open port.
         run: |
@@ -37,7 +37,7 @@ jobs:
           echo "CLIENT_PORT=$CLIENT_PORT" >> $GITHUB_ENV
 
       - name: Build docker image
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@master
         with:
           push: false
           no-cache: true
@@ -87,20 +87,20 @@ jobs:
           echo ::set-output name=VERSION::${TAG%-*}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@master
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@master
 
       - name: Login to Quay
-        uses: docker/login-action@v1
+        uses: docker/login-action@master
         with:
           registry: quay.io
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
 
       - name: Push to Quay
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@master
         with:
           file: ./Dockerfile
           pull: true
