@@ -4,10 +4,10 @@ services:
     image: quay.io/aminvakil/ocserv
     restart: unless-stopped
     container_name: ocserv
-    hostname: www.example.com
+    hostname: welljoy.fun
     ports:
-      - 443:443/udp
-      - 443:443
+      - 445:445/udp
+      - 445:445
     # volumes:
     #   - "/opt/ocserv:/etc/ocserv"
     sysctls:
